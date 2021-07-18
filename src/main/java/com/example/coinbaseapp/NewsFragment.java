@@ -29,7 +29,7 @@ public class NewsFragment extends Fragment {
         webView.setWebViewClient(new WebViewClient());
 
         String HOME_PAGE="https://coindesk-news.com/".toString();
-        webView.loadUrl(HOME_PAGE);
+       webView.loadUrl(HOME_PAGE);
 
         WebSettings fixset = webView.getSettings();
         fixset.setJavaScriptEnabled(true);

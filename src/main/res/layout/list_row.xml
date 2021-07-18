@@ -1,64 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="match_parent">
 
     <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:src="@drawable/home_24"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:id="@+id/tickerImage"
+        android:layout_rowSpan="2"
+        android:layout_width="80dp"
+        android:layout_height="70dp"
+        android:scaleType="fitXY"
+        android:layout_row="0"
+        android:layout_column="0"
+        />
 
     <TextView
-        android:id="@+id/stockName"
+        android:id="@+id/companyName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="136dp"
-        android:layout_marginTop="16dp"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-        android:textSize="18sp"
-        app:layout_constraintStart_toEndOf="@+id/imageView"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="Bitcoin" />
+        android:layout_columnWeight="1"
+        android:layout_marginLeft="10dp"
+        android:textSize="30dp"
+        android:textColor="@color/black"
+        android:layout_row="0"
+        android:layout_column="1" />
 
     <TextView
         android:id="@+id/tickerName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="176dp"
-        android:layout_marginTop="7dp"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-        android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/stockName"
-        tools:text="BTC" />
+        android:layout_columnWeight="1"
+        android:layout_marginLeft="10dp"
+        android:textSize="20dp"
+        android:textColor="@color/black"
+        android:layout_row="1"
+        android:layout_column="1" />
 
     <TextView
         android:id="@+id/changeValue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="94dp"
-        android:layout_marginTop="16dp"
-        android:paddingStart="5dp"
-        android:paddingEnd="5dp"
-        app:layout_constraintStart_toEndOf="@+id/stockName"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="-0.64%" />
+        android:layout_columnWeight="1"
+        android:layout_marginLeft="10dp"
+        android:textSize="20dp"
+        android:textColor="@color/black"
+        android:layout_row="0"
+        android:layout_column="2"/>
 
     <TextView
         android:id="@+id/currentValue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="116dp"
-        android:layout_marginTop="17dp"
-        app:layout_constraintStart_toEndOf="@+id/tickerName"
-        app:layout_constraintTop_toBottomOf="@+id/changeValue"
-        tools:text="$31,601.04" />
+        android:layout_columnWeight="1"
+        android:layout_marginLeft="10dp"
+        android:textSize="20dp"
+        android:textColor="@color/black"
+        android:layout_row="1"
+        android:layout_column="2" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</GridLayout>
