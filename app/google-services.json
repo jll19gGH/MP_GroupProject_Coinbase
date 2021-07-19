@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "94378601179",
+    "project_id": "coinbase-64edd",
+    "storage_bucket": "coinbase-64edd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:94378601179:android:3485d6eada2416f12dbafe",
+        "android_client_info": {
+          "package_name": "com.example.coinbaseapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "94378601179-9j3mfhe0dl7jbc872bps1sflqbd77bb8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAVKVh7AlTPBAsHncM3667laAm3ykk1hmY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "94378601179-9j3mfhe0dl7jbc872bps1sflqbd77bb8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
