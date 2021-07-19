@@ -14,14 +14,15 @@
         android:layout_marginTop="30dp"
         android:fontFamily="@font/corben"
         android:text="News"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textSize="20dp"
         android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
     <WebView
         android:id="@+id/news_webview"
         android:layout_width="410dp"
-        android:layout_height="wrap_content"
+        android:layout_height="680dp"
         android:layout_marginTop="20dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/newsTitle" />

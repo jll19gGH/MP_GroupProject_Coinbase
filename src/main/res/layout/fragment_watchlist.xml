@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     tools:context=".WatchlistFragment">
 
     <TextView
@@ -14,7 +14,7 @@
         android:layout_marginTop="30dp"
         android:fontFamily="@font/corben"
         android:text="Watchlist"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textSize="20dp"
         android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -26,6 +26,7 @@
         android:layout_marginStart="1dp"
         android:layout_marginTop="20dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/watchlistTitle" />
-
+        app:layout_constraintTop_toBottomOf="@+id/watchlistTitle"
+        android:padding="11dp"
+        android:background="@drawable/border_shadow" />
 </androidx.constraintlayout.widget.ConstraintLayout>
