@@ -59,7 +59,7 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText2" />
+        app:layout_constraintTop_toBottomOf="@+id/register_lastName" />
 
     <TextView
         android:id="@+id/textView9"
@@ -72,43 +72,54 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextEmailAddress2" />
+        app:layout_constraintTop_toBottomOf="@+id/register_email_address" />
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/register_first_name"
         android:layout_width="340dp"
         android:layout_height="50dp"
+        android:padding="10dp"
         android:layout_marginStart="40dp"
         android:background="@drawable/border"
         android:ems="10"
         android:fontFamily="@font/corben"
-        android:hint="     First  Name"
+        android:hint="First  Name"
         android:inputType="textEmailAddress"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
-    <EditText
-        android:id="@+id/editTextTextEmailAddress3"
-        android:layout_width="340dp"
-        android:layout_height="50dp"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/registration_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
-        android:background="@drawable/border"
-        android:ems="10"
-        android:fontFamily="@font/corben"
-        android:hint="     Minimum  8  characters"
-        android:inputType="textEmailAddress"
+        app:errorEnabled="true"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView9" />
+        app:layout_constraintTop_toBottomOf="@+id/textView9">
+
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/register_password"
+            android:layout_width="340dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="0dp"
+            android:background="@drawable/border"
+            android:padding="10dp"
+            android:ems="10"
+            android:fontFamily="@font/corben"
+            android:inputType="textPassword"/>
+    </com.google.android.material.textfield.TextInputLayout>
 
     <EditText
-        android:id="@+id/editTextTextEmailAddress2"
+        android:id="@+id/register_email_address"
         android:layout_width="340dp"
         android:layout_height="50dp"
         android:layout_marginStart="40dp"
         android:background="@drawable/border"
+        android:padding="10dp"
         android:ems="10"
         android:fontFamily="@font/corben"
-        android:hint="     Email  address"
+        android:hint="Email  address"
         android:inputType="textEmailAddress"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView8" />
@@ -124,17 +135,18 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText" />
+        app:layout_constraintTop_toBottomOf="@+id/register_first_name" />
 
     <EditText
-        android:id="@+id/editText2"
+        android:id="@+id/register_lastName"
         android:layout_width="340dp"
         android:layout_height="50dp"
+        android:padding="10dp"
         android:layout_marginStart="40dp"
         android:background="@drawable/border"
         android:ems="10"
         android:fontFamily="@font/corben"
-        android:hint="     Last  Name"
+        android:hint="Last  Name"
         android:inputType="textPassword"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView7" />
@@ -152,10 +164,10 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:textColor="@color/white"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/checkBox" />
+        app:layout_constraintTop_toBottomOf="@+id/register_checkBox" />
 
     <CheckBox
-        android:id="@+id/checkBox"
+        android:id="@+id/register_checkBox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
@@ -164,6 +176,6 @@
         android:text="I certify that I am 18 years of age or older"
         android:textAppearance="@style/TextAppearance.AppCompat.Small"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextEmailAddress3" />
+        app:layout_constraintTop_toBottomOf="@+id/registration_layout" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
