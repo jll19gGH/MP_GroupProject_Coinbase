@@ -1,21 +1,28 @@
 package com.example.coinbaseapp;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import java.util.LinkedList;
+
 public class MainActivity extends AppCompatActivity {
 
     Button loginButton;
     Button registerButton;
+    private SharedViewModel sharedViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        sharedViewModel=new ViewModelProvider(this).get(SharedViewModel.class);
+        loadWatchlist();
         loginButton=findViewById(R.id.loginButton);
         registerButton=findViewById(R.id.registerButton);
 
@@ -31,6 +38,11 @@ public class MainActivity extends AppCompatActivity {
                 launchRegistration();
             }
         });
+    }
+
+    private void loadWatchlist() {
+        LinkedList<APIQuote> tempList=new LinkedList<>();
+        sharedViewModel.setWatchlist(tempList);
     }
 
     public void launchLogin()
