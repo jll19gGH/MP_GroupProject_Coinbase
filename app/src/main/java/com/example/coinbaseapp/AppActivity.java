@@ -1,6 +1,7 @@
 package com.example.coinbaseapp;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
@@ -15,12 +16,16 @@ import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.ParsedRequestListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -31,9 +36,11 @@ public class AppActivity extends AppCompatActivity {
     String key;
     private SharedViewModel sharedViewModel;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
-    DatabaseReference coinsRef = database.getReference("/coins");
+    FirebaseUser user= FirebaseAuth.getInstance().getCurrentUser();
+    //DatabaseReference coinsRef = database.getReference("/coins");
+    DatabaseReference coinsRef = database.getReference("/"+user.getUid()+"/coins");
+    DatabaseReference watchlistRef = database.getReference("/"+user.getUid()+"/watchlist");
     DatabaseReference newChildRef;
-    //ArrayList<APIQuote> cryptoCoins;
 
     private void getCryptoList()
     {
@@ -46,9 +53,11 @@ public class AppActivity extends AppCompatActivity {
         setContentView(R.layout.activity_app);
         sharedViewModel=new ViewModelProvider(this).get(SharedViewModel.class);
         loadWatchlist();
+        loadCoinlist();
 
 
         coinsRef.setValue(null);
+        watchlistRef.setValue(null);
         //cryptoCoins=new ArrayList<APIQuote>();
 
         BottomNavigationView bottomNav=findViewById(R.id.bottom_navigation);
@@ -56,39 +65,23 @@ public class AppActivity extends AppCompatActivity {
 
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new HomeFragment()).commit();
 
-        coinsRef.addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String prevChildKey) {
-                //cryptoCoins.add(dataSnapshot.getValue(APIQuote.class));
-            }
-
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot,String prevChildKey) {
-
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot snapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot snapshot, String previousChildName) {
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError error) {
-
-            }
-        });
-
         loadLists();    //loads crypto from API and also will load the watchlist using Firebase
+
+        if(user!=null)
+        {
+            Toast.makeText(this,"User name: "+user.getDisplayName()+"\nUser email: "+user.getEmail().toString() + "\nUser id: " + user.getUid().toString(),Toast.LENGTH_LONG).show();
+        }
+
     }
 
     private void loadWatchlist() {
         LinkedList<APIQuote> tempList=new LinkedList<>();
         sharedViewModel.setWatchlist(tempList);
+    }
+
+    private void loadCoinlist() {
+        LinkedList<APIQuote> tempList=new LinkedList<>();
+        sharedViewModel.setCoinlist(tempList);
     }
 
     private void loadLists() {
@@ -102,15 +95,12 @@ public class AppActivity extends AppCompatActivity {
             public void onResponse(List<APIQuote> quotes) {
                 for (APIQuote profile : quotes)
                {
-                   sharedViewModel.addToWatchlist(profile);
-                  newChildRef = coinsRef.push();
+                   sharedViewModel.addToCoinlist(profile);
+                   newChildRef = coinsRef.push();
                   key = newChildRef.getKey();
                   coinsRef.child(key).setValue(profile);
                }
-
               //Toast.makeText(AppActivity.this, cryptoCoins.get(cryptoCoins.size()-1).getName().toString(), Toast.LENGTH_LONG).show();
-
-
             }
             //@Override
             public void onError(ANError anError) {
@@ -121,6 +111,43 @@ public class AppActivity extends AppCompatActivity {
 
 
         //Toast.makeText(AppActivity.this, quotes.get(quotes.size()-1).getName().toString(), Toast.LENGTH_LONG).show();
+/*
+        coinsRef.orderByChild("price").addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot snapshot, String previousChildName) {
+
+                //cryptoCoins.add(dataSnapshot.getValue(APIQuote.class));
+
+                //List<APIQuote> quotes= (List<APIQuote>) snapshot.getValue();
+                APIQuote profile= (snapshot.getValue(APIQuote.class));
+                sharedViewModel.addToWatchlist(profile);
+                newChildRef = coinsRef.push();
+                key = newChildRef.getKey();
+                watchlistRef.child(key).setValue(profile);
+            }
+
+            @Override
+            public void onChildChanged(@NonNull @NotNull DataSnapshot snapshot, @Nullable @org.jetbrains.annotations.Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull @NotNull DataSnapshot snapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull @NotNull DataSnapshot snapshot, @Nullable @org.jetbrains.annotations.Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull @NotNull DatabaseError error) {
+
+            }
+        });
+
+ */
 
     }
 
@@ -148,7 +175,5 @@ public class AppActivity extends AppCompatActivity {
             return true;
         }
             };
-
-
 
 }

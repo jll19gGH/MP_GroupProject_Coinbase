@@ -16,6 +16,8 @@ import java.util.LinkedList;
 
 public class SharedViewModel extends ViewModel {
     public MutableLiveData<LinkedList<APIQuote>> watchlist;
+    public MutableLiveData<LinkedList<APIQuote>> coinlist;
+
     //public MutableLiveData<LinkedList<APIQuote>> APIQuotes=new MutableLiveData<>();
 /*
     public void setAPIQuotes(LinkedList<APIQuote> quotes) {
@@ -68,6 +70,29 @@ public class SharedViewModel extends ViewModel {
             watchlist = new MutableLiveData<>();
         }
         return watchlist;
+    }
+
+    //---------------------------------------------------------------
+
+    public void setCoinlist(LinkedList<APIQuote> quotes) {
+        if (coinlist == null) {
+            coinlist = new MutableLiveData<>();
+        }
+        coinlist.setValue(quotes);
+    }
+
+    public void addToCoinlist(APIQuote quote) {
+        LinkedList<APIQuote> tempList = coinlist.getValue();
+        assert tempList != null;
+        tempList.add(quote);
+        coinlist.setValue(tempList);
+    }
+
+    public LiveData<LinkedList<APIQuote>> getCoinlist() {
+        if (coinlist == null) {
+            coinlist = new MutableLiveData<>();
+        }
+        return coinlist;
     }
 
 }

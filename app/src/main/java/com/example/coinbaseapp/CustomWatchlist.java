@@ -2,12 +2,16 @@ package com.example.coinbaseapp;
 
 import android.app.Activity;
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.lifecycle.LiveData;
 
@@ -17,10 +21,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-public class CustomWatchlist extends ArrayAdapter<APIQuote> {
+public class CustomWatchlist extends ArrayAdapter<APIQuote> implements Filterable {
 /*
     private Integer imageids[];
     private String companyNames[];
@@ -74,14 +81,21 @@ public class CustomWatchlist extends ArrayAdapter<APIQuote> {
     private Float currentValues[];
     private Activity context;
     private int resourceLayout;
+    private List<APIQuote> coins;
+    private List<APIQuote> filteredCoins;
+    private CoinsFilter filter;
+    //private ItemFilter itemFilter=new ItemFilter();
 
     public CustomWatchlist(Activity context, int resource, LiveData<LinkedList<APIQuote>> coins)
     {
         super(context,resource,coins.getValue());
-        //coins=new LinkedList<APIQuote>();
+        this.coins=new LinkedList<APIQuote>();
+        this.coins.addAll(coins.getValue());
+        //this.coins=coins.getValue();
+        this.filteredCoins=new LinkedList<>();
+        this.filteredCoins.addAll(coins.getValue());
         this.context=context;
         this.resourceLayout=resource;
-        //this.coins=coins;
     }
 
     @Override
@@ -101,10 +115,26 @@ public class CustomWatchlist extends ArrayAdapter<APIQuote> {
             TextView textViewCurrentValue = (TextView) row.findViewById(R.id.currentValue);
             ImageView image = (ImageView) row.findViewById(R.id.tickerImage);
 
-            textViewCompany.setText(coin.getName());
+            String name= coin.getName();
+            name=name.substring(0,name.length()-3);
+
+            textViewCompany.setText(name);
             textViewTicker.setText(coin.getSymbol());
-            textViewChangeValue.setText(coin.getChange().toString());
-            textViewCurrentValue.setText(coin.getChangesPercentage().toString());
+            Float price= coin.getPrice();
+            NumberFormat priceFormat=new DecimalFormat("0.00");
+            String priceFormatted=priceFormat.format(price);
+            textViewChangeValue.setText("$ "+priceFormatted);
+            Float changePercent= coin.getChangesPercentage();
+            NumberFormat changeFormat=new DecimalFormat("0.0000");
+            String changeFormatted=changeFormat.format(changePercent);
+            textViewCurrentValue.setText(changeFormatted+" %");
+            String imageURL = "https://cryptologos.cc/logos/usd-coin-usdc-logo.png?v=013";
+            Picasso.get().load(imageURL).fit().into(image);
+
+
+            //image.setImageResource(        R.drawable.btc
+                 //   );
+            /*
             String companyForURL = (coin.getSymbol());
             companyForURL=companyForURL.substring(companyForURL.length()-3);
             companyForURL = companyForURL.toLowerCase();
@@ -124,6 +154,8 @@ public class CustomWatchlist extends ArrayAdapter<APIQuote> {
                 );
             }
 
+             */
+
             //image.setImageResource(        R.drawable.btc
             //        );
             //String imageURL = "https://financialmodelingprep.com/cryptos/" + companyForURL + ".svg";
@@ -134,4 +166,184 @@ public class CustomWatchlist extends ArrayAdapter<APIQuote> {
     }
 
 
-}
+    @Override
+    public Filter getFilter() {
+        if(filter==null) {
+            filter=new CoinsFilter();
+        }
+        return filter;
+    }
+
+    private class CoinsFilter extends Filter
+    {
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+
+            String match;
+            match = constraint.toString().toLowerCase();
+            FilterResults result = new FilterResults();
+            if(match != null && match.length() > 0)
+            {
+                LinkedList<APIQuote> filteredItems = new LinkedList<APIQuote>();
+
+                for(int i = 0; i < coins.size(); i++)
+                {
+                    APIQuote profile = coins.get(i);
+                    if(profile.toString().toLowerCase().contains(match))
+                    {
+                        filteredItems.add(profile);
+                    }
+                }
+                result.count = filteredItems.size();
+                result.values = filteredItems;
+            }
+            else
+            {
+                synchronized(this)
+                {
+                    result.values = coins;
+                    result.count = coins.size();
+                }
+            }
+            return result;
+        }
+
+        @SuppressWarnings("unchecked")
+        @Override
+        protected void publishResults(CharSequence constraint,
+                                      FilterResults results) {
+
+            filteredCoins = (LinkedList<APIQuote>)results.values;
+            notifyDataSetChanged();
+            clear();
+            for(int i = 0, l = results.count; i < l; i++)
+                add(filteredCoins.get(i));
+            notifyDataSetInvalidated();
+        }
+    }
+
+    }
+
+  //  @Override
+  //  public Filter getFilter() {
+    //    return filter;
+   // }
+/*
+    Filter filter=new Filter() {
+        @Override
+        protected FilterResults performFiltering(CharSequence charSequence) {
+
+            LinkedList<APIQuote> filteredList=new LinkedList<>();
+
+            if(charSequence.toString().isEmpty()) {
+                //filteredList.addAll(coins.val);
+            }
+            else
+            {
+                for(APIQuote profile:coins) {
+                    if(profile.getName().toLowerCase().contains(charSequence.toString().toLowerCase()))
+                    {
+                        filteredList.add(profile);
+                    }
+                }
+            }
+
+            FilterResults filterResults=new FilterResults();
+            filterResults.values=filteredList;
+            return filterResults;
+        }
+
+        @Override
+        protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+            filteredCoins.clear();
+            filteredCoins.addAll((LinkedList<APIQuote>)filterResults.values);
+            notifyDataSetChanged();
+        }
+    };
+
+
+    //private class ItemFilter extends Filter {
+        /*
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+
+            String filterString = constraint.toString().toLowerCase();
+
+            FilterResults results = new FilterResults();
+
+            final List<APIQuote> list = coins;
+
+            int count = list.size();
+            final ArrayList<APIQuote> nlist = new ArrayList<>(count);
+
+            String name;
+            String ticker;
+
+            for (int i = 0; i < count; i++) {
+                //filterableString = list.get(i);
+                name=list.get(i).getName().toString().toLowerCase();
+                ticker=list.get(i).getSymbol().toString().toLowerCase();
+                if (name.contains(filterString)) {
+                    nlist.add(list.get(i));
+                }
+            }
+
+            results.values = nlist;
+            results.count = nlist.size();
+
+            return results;
+        }
+
+ */
+
+
+/*
+
+        protected FilterResults performFiltering(CharSequence constraint) {
+            FilterResults results = new FilterResults();
+            if (constraint == null || constraint.length() == 0) {
+                results.values = coins;
+                results.count = coins.size();
+            } else {
+                ArrayList<APIQuote> newValues = new ArrayList<APIQuote>();
+                for (APIQuote i : coins) {
+                    if (i.getName().toString().toUpperCase().startsWith(constraint.toString().toUpperCase())) {
+                        newValues.add(i);
+                    }
+                }
+//MAKE SURE THAT HERE YOU GET THE PROPER VALUES IN newValues based on the constraint
+// you enter
+                results.values = newValues;
+                results.count = newValues.size();
+            }
+            return results;
+        }
+
+        @SuppressWarnings("unchecked")
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+            //filteredCoins = (ArrayList<APIQuote>) results.values;
+            //notifyDataSetChanged();
+            if (results.count == 0){
+                notifyDataSetInvalidated();
+            } else {
+                @SuppressWarnings("unchecked")
+                ArrayList<APIQuote> lst = (ArrayList<APIQuote>)results.values;
+                ArrayList<APIQuote> itemsList = new ArrayList<APIQuote>(lst);
+
+                coins = itemsList;
+                clear();
+                for (APIQuote item : coins) {
+                    add(item);
+                }
+            }
+
+        }
+
+
+   //}
+
+ */
+
+
+

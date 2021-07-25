@@ -8,8 +8,14 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.ListView;
 
 public class Top10Fragment extends Fragment {
+
+    private ListView listView;
+    private SharedViewModel sharedViewModel;
+    CustomWatchlist customWatchlist;
 
     @Nullable
     @Override

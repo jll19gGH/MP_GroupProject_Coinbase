@@ -93,7 +93,16 @@ public class APIQuote implements Cloneable {
 
  */
 
+    public void setSymbol(String symbol) {
+        this.symbol = symbol;
+    }
+
     public String getSymbol() {return symbol;}
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public String getName() {return name;}
     public Float getPrice(){return price;}
     public Float getChangesPercentage(){return changesPercentage;}
@@ -115,5 +124,10 @@ public class APIQuote implements Cloneable {
     public String getEarningsAnnouncement(){return earningsAnnouncement;}
     public Float getSharesOutstanding(){return sharesOutstanding;}
     public Float getTimestamp(){return timestamp;}
+
+    @Override
+    public String toString() {
+        return  name + " " + symbol + " ";
+    }
 
 }

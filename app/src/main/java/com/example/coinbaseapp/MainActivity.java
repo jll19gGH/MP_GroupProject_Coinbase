@@ -23,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
 
         sharedViewModel=new ViewModelProvider(this).get(SharedViewModel.class);
         loadWatchlist();
+        loadCoinlist();
         loginButton=findViewById(R.id.loginButton);
         registerButton=findViewById(R.id.registerButton);
 
@@ -43,6 +44,11 @@ public class MainActivity extends AppCompatActivity {
     private void loadWatchlist() {
         LinkedList<APIQuote> tempList=new LinkedList<>();
         sharedViewModel.setWatchlist(tempList);
+    }
+
+    private void loadCoinlist() {
+        LinkedList<APIQuote> tempList=new LinkedList<>();
+        sharedViewModel.setCoinlist(tempList);
     }
 
     public void launchLogin()
