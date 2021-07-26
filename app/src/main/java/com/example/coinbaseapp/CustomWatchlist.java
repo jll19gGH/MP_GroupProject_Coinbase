@@ -73,12 +73,6 @@ public class CustomWatchlist extends ArrayAdapter<APIQuote> implements Filterabl
  */
 
 
-
-    //private Integer imageids[];
-    private String companyNames[];
-    private String tickerNames[];
-    private Float changeValues[];
-    private Float currentValues[];
     private Activity context;
     private int resourceLayout;
     private List<APIQuote> coins;
@@ -117,9 +111,14 @@ public class CustomWatchlist extends ArrayAdapter<APIQuote> implements Filterabl
 
             String name= coin.getName();
             name=name.substring(0,name.length()-3);
+            name=name.trim();
 
             textViewCompany.setText(name);
-            textViewTicker.setText(coin.getSymbol());
+
+            String ticker= coin.getSymbol();
+            ticker=ticker.substring(0,ticker.length()-3);
+
+            textViewTicker.setText(ticker);
             Float price= coin.getPrice();
             NumberFormat priceFormat=new DecimalFormat("0.00");
             String priceFormatted=priceFormat.format(price);
@@ -128,7 +127,205 @@ public class CustomWatchlist extends ArrayAdapter<APIQuote> implements Filterabl
             NumberFormat changeFormat=new DecimalFormat("0.0000");
             String changeFormatted=changeFormat.format(changePercent);
             textViewCurrentValue.setText(changeFormatted+" %");
-            String imageURL = "https://cryptologos.cc/logos/usd-coin-usdc-logo.png?v=013";
+
+
+            String imageURL= "https://upload.wikimedia.org/wikipedia/commons/4/48/BLANK_ICON.png";
+
+            switch(name){
+                case "Siacoin":
+                    imageURL = "https://cryptologos.cc/logos/siacoin-sc-logo.png?v=013";
+                    break;
+                case "Gnosis":
+                    imageURL = "https://cryptologos.cc/logos/gnosis-gno-gno-logo.png?v=013";
+                    break;
+                case "EOS":
+                    imageURL = "https://cryptologos.cc/logos/eos-eos-logo.png?v=013";
+                    break;
+                case "NoLimitCoin":
+                    imageURL = "https://cryptologos.cc/logos/nolimitcoin-nlc2-logo.png?v=013";
+                    break;
+                case "Exchange Union":
+                    imageURL = "https://cryptologos.cc/logos/exchange-union-xuc-logo.png?v=013";
+                    break;
+
+
+
+                case "MCO":
+                    imageURL = "https://cryptologos.cc/logos/crypto-com-mco-logo.png?v=013";
+                    break;
+                case "Blocknet":
+                    imageURL = "https://cryptologos.cc/logos/blocknet-block-logo.png?v=013";
+                    break;
+                case "Loopring":
+                    imageURL="https://cryptologos.cc/logos/loopring-lrc-logo.png?v=013";
+                    break;
+                case "Litecoin":
+                    imageURL = "https://cryptologos.cc/logos/litecoin-ltc-logo.png?v=013";
+                    break;
+
+
+
+
+                case "Aragon":
+                    imageURL = "https://cryptologos.cc/logos/aragon-ant-logo.png?v=013";
+                    break;
+                case "Obyte":
+                    imageURL = "https://cryptologos.cc/logos/obyte-gbyte-logo.png?v=013";
+                    break;
+                case "GameCredits":
+                    imageURL = "https://cryptologos.cc/logos/gamecredits-game-logo.png?v=013";
+                    break;
+                case "NEM":
+                    imageURL = "https://cryptologos.cc/logos/nem-xem-logo.png?v=013";
+                    break;
+                case "Factom":
+                    imageURL = "https://cryptologos.cc/logos/factom-fct-logo.png?v=013";
+                    break;
+                case "Gas":
+                    imageURL="https://cryptologos.cc/logos/gas-gas-logo.png?v=013";
+                    break;
+                case "SmartCash":
+                    imageURL = "https://cryptologos.cc/logos/smartcash-smart-logo.png?v=013";
+                    break;
+
+
+
+
+                case "Verge":
+                    imageURL = "https://cryptologos.cc/logos/verge-xvg-logo.png?v=013";
+                    break;
+                case "Waltonchain":
+                    imageURL = "https://cryptologos.cc/logos/waltonchain-wtc-logo.png?v=013";
+                    break;
+                case "Populous":
+                    imageURL = "https://cryptologos.cc/logos/populous-ppt-logo.png?v=013";
+                    break;
+                case "Lykke":
+                    imageURL = "https://cryptologos.cc/logos/lykke-lkk-logo.png?v=013";
+                    break;
+                case "Substratum":
+                    imageURL="https://cryptologos.cc/logos/substratum-sub-logo.png?v=013";
+                    break;
+                case "Neblio":
+                    imageURL = "https://cryptologos.cc/logos/neblio-nebl-logo.png?v=013";
+                    break;
+
+
+                case "Stellar":
+                    imageURL = "https://cryptologos.cc/logos/stellar-xlm-logo.png?v=013";
+                    break;
+                case "Dash":
+                    imageURL = "https://cryptologos.cc/logos/dash-dash-logo.png?v=013";
+                    break;
+                case "Decred":
+                    imageURL = "https://cryptologos.cc/logos/decred-dcr-logo.png?v=013";
+                    break;
+                case "Ethereum":
+                    imageURL="https://cryptologos.cc/logos/ethereum-eth-logo.png?v=013";
+                    break;
+
+
+
+
+                case "Basic Attention Token":
+                    imageURL = "https://cryptologos.cc/logos/basic-attention-token-bat-logo.png?v=013";
+                    break;
+                case "TenX":
+                    imageURL = "https://cryptologos.cc/logos/tenx-pay-logo.png?v=013";
+                    break;
+
+
+
+
+                case "Bitcoin Cash":
+                    imageURL = "https://cryptologos.cc/logos/bitcoin-cash-bch-logo.png?v=013";
+                    break;
+                case "Bitcoin Gold":
+                    imageURL = "https://cryptologos.cc/logos/bitcoin-gold-btg-logo.png?v=013";
+                    break;
+                case "ICON":
+                    imageURL = "https://cryptologos.cc/logos/icon-icx-logo.png?v=013";
+                    break;
+                case "NavCoin":
+                    imageURL = "https://cryptologos.cc/logos/nav-coin-nav-logo.png?v=013";
+                    break;
+                case "Civic":
+                    imageURL="https://cryptologos.cc/logos/civic-cvc-logo.png?v=013";
+                    break;
+                case "BitShares":
+                    imageURL = "https://cryptologos.cc/logos/bitshares-bts-logo.png?v=013";
+                    break;
+
+
+
+
+
+                case "Veritaseum":
+                    imageURL = "https://cryptologos.cc/logos/veritaseum-veri-logo.png?v=013";
+                    break;
+                case "Status":
+                    imageURL = "https://cryptologos.cc/logos/status-snt-logo.png?v=013";
+                    break;
+                case "Bancor":
+                    imageURL = "https://cryptologos.cc/logos/bancor-bnt-logo.png?v=013";
+                    break;
+                case "Lisk":
+                    imageURL="https://cryptologos.cc/logos/lisk-lsk-logo.png?v=013";
+                    break;
+                case "SingularDTV":
+                    imageURL = "https://cryptologos.cc/logos/singulardtv-sngls-logo.png?v=013";
+                    break;
+
+
+
+                case "Nexus":
+                    imageURL = "https://cryptologos.cc/logos/nexus-nxs-logo.png?v=013";
+                    break;
+                case "Ardor":
+                    imageURL = "https://cryptologos.cc/logos/ardor-ardr-logo.png?v=013";
+                    break;
+                case "Komodo":
+                    imageURL = "https://cryptologos.cc/logos/komodo-kmd-logo.png?v=013";
+                    break;
+                case "DigixDAO":
+                    imageURL = "https://cryptologos.cc/logos/digixdao-dgd-logo.png?v=013";
+                    break;
+
+
+
+
+                case "QASH":
+                    imageURL = "https://cryptologos.cc/logos/qash-qash-logo.png?v=013";
+                    break;
+                case "Binance Coin":
+                    imageURL = "https://cryptologos.cc/logos/binance-coin-bnb-logo.png?v=013";
+                    break;
+                case "Dogecoin":
+                    imageURL = "https://cryptologos.cc/logos/dogecoin-doge-logo.png?v=013";
+                    break;
+                case "Ethereum Classic":
+                    imageURL="https://cryptologos.cc/logos/ethereum-classic-etc-logo.png?v=013";
+                    break;
+                case "PIVX":
+                    imageURL = "https://cryptologos.cc/logos/pivx-pivx-logo.png?v=013";
+                    break;
+
+                case "Bitcoin":
+                    imageURL = "https://cryptologos.cc/logos/bitcoin-btc-logo.png?v=013";
+                    break;
+
+
+
+
+
+
+
+                default:
+                    imageURL= "https://upload.wikimedia.org/wikipedia/commons/4/48/BLANK_ICON.png";
+            }
+
+
+
             Picasso.get().load(imageURL).fit().into(image);
 
 

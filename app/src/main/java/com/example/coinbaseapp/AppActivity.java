@@ -37,9 +37,8 @@ public class AppActivity extends AppCompatActivity {
     private SharedViewModel sharedViewModel;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     FirebaseUser user= FirebaseAuth.getInstance().getCurrentUser();
-    //DatabaseReference coinsRef = database.getReference("/coins");
-    DatabaseReference coinsRef = database.getReference("/"+user.getUid()+"/coins");
     DatabaseReference watchlistRef = database.getReference("/"+user.getUid()+"/watchlist");
+    DatabaseReference coinsRef = database.getReference("/"+user.getUid()+"/coins");
     DatabaseReference newChildRef;
 
     private void getCryptoList()
@@ -57,7 +56,6 @@ public class AppActivity extends AppCompatActivity {
 
 
         coinsRef.setValue(null);
-        watchlistRef.setValue(null);
         //cryptoCoins=new ArrayList<APIQuote>();
 
         BottomNavigationView bottomNav=findViewById(R.id.bottom_navigation);
@@ -112,7 +110,7 @@ public class AppActivity extends AppCompatActivity {
 
         //Toast.makeText(AppActivity.this, quotes.get(quotes.size()-1).getName().toString(), Toast.LENGTH_LONG).show();
 /*
-        coinsRef.orderByChild("price").addChildEventListener(new ChildEventListener() {
+        watchlistRef.orderByChild("price").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot snapshot, String previousChildName) {
 
@@ -148,6 +146,8 @@ public class AppActivity extends AppCompatActivity {
         });
 
  */
+
+
 
     }
 

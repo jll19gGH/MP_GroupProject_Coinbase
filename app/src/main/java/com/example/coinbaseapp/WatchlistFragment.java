@@ -22,27 +22,6 @@ public class WatchlistFragment extends Fragment {
 private ListView listView;
 private SharedViewModel sharedViewModel;
 
-private Integer imageids[]={
-        R.drawable.btc,
-        R.drawable.eth
-};
-private String companyNames[]={
-        "Bitcoin",
-        "Ethereum"
-};
-private String tickerNames[]={
-        "BTC",
-        "ETH"
-};
-private String changeValues[]={
-        "+0.59%",
-        "+0.29%"
-};
-private String currentValues[]={
-        "$31,513.76",
-        "$1,895.23"
-};
-
 
     @Nullable
     @Override

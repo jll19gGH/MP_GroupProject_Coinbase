@@ -23,6 +23,7 @@ public class APIQuote implements Cloneable {
     private String earningsAnnouncement;
     private Float sharesOutstanding;
     private Float timestamp;
+    private String imageURL;
 
     public APIQuote() {
         //default constructor needed for Datasnapshot
@@ -64,6 +65,8 @@ public class APIQuote implements Cloneable {
         this.earningsAnnouncement=earningsAnnouncement;
         this.sharesOutstanding=sharesOutstanding;
         this.timestamp=timestamp;
+
+
     }
 /*
     public APIQuote(APIQuote quote) {

@@ -15,6 +15,7 @@ import com.androidnetworking.interfaces.ParsedRequestListener;
 import java.util.LinkedList;
 
 public class SharedViewModel extends ViewModel {
+    public MutableLiveData<APIQuote> currentCoin;
     public MutableLiveData<LinkedList<APIQuote>> watchlist;
     public MutableLiveData<LinkedList<APIQuote>> coinlist;
 
@@ -42,6 +43,21 @@ public class SharedViewModel extends ViewModel {
     }
 
  */
+
+    public LiveData<APIQuote> getCurrentCoin() {
+        if (currentCoin == null) {
+            currentCoin = new MutableLiveData<>();
+            currentCoin.postValue(new APIQuote());
+        }
+        return currentCoin;
+    }
+
+    public void setCurrentCoin(APIQuote coin) {
+        if (currentCoin == null) {
+            currentCoin = new MutableLiveData<APIQuote>();
+        }
+        currentCoin.setValue(coin);
+    }
 
     public void setWatchlist(LinkedList<APIQuote> quotes) {
         if (watchlist == null) {

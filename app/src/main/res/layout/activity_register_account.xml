@@ -141,13 +141,13 @@
         android:id="@+id/register_lastName"
         android:layout_width="340dp"
         android:layout_height="50dp"
-        android:padding="10dp"
         android:layout_marginStart="40dp"
         android:background="@drawable/border"
         android:ems="10"
         android:fontFamily="@font/corben"
         android:hint="Last  Name"
-        android:inputType="textPassword"
+        android:inputType="textPersonName"
+        android:padding="10dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView7" />
 
