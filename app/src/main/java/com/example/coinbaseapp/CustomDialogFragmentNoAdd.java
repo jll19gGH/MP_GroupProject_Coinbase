@@ -5,33 +5,27 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 
-import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
-import java.util.LinkedList;
 
 
-public class CustomDialogFragmentwAdd extends DialogFragment {
+public class CustomDialogFragmentNoAdd extends DialogFragment {
 
     APIQuote quote;
-    private SharedViewModel sharedViewModel;
 
-    public CustomDialogFragmentwAdd(APIQuote quote) {
+    public CustomDialogFragmentNoAdd(APIQuote quote) {
         this.quote = quote;
     }
 
@@ -40,9 +34,7 @@ public class CustomDialogFragmentwAdd extends DialogFragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = requireActivity().getLayoutInflater();
 
-        sharedViewModel = new ViewModelProvider(this).get(SharedViewModel.class);
-
-        final View root = inflater.inflate(R.layout.custom_dialog, null);
+        final View root = inflater.inflate(R.layout.fragment_custom_dialog_no_add, null);
 
         TextView textViewCompany = (TextView) root.findViewById(R.id.dialogCompanyName);
         TextView textViewTicker = (TextView) root.findViewById(R.id.dialogTickerName);
@@ -61,13 +53,12 @@ public class CustomDialogFragmentwAdd extends DialogFragment {
         TextView textViewAvgVolume = (TextView) root.findViewById(R.id.dialogAvgVolume);
 
 
-
         ImageView image = (ImageView) root.findViewById(R.id.dialogTickerImage);
 
 
         String name = quote.getName();
         name = name.substring(0, name.length() - 3);
-        name=name.trim();
+        name = name.trim();
 
         textViewCompany.setText(name);
 
@@ -86,7 +77,7 @@ public class CustomDialogFragmentwAdd extends DialogFragment {
         Float changePercent = quote.getChangesPercentage();
         NumberFormat changeFormat = new DecimalFormat("0.0000");
         String changeFormatted = changeFormat.format(changePercent);
-        textViewChangePercent.setText("Change Percentage: "+changeFormatted + " %");
+        textViewChangePercent.setText("Change Percentage: " + changeFormatted + " %");
 
         Float dayHigh = quote.getDayHigh();
         NumberFormat dayHighFormat = new DecimalFormat("0.00");
@@ -123,9 +114,9 @@ public class CustomDialogFragmentwAdd extends DialogFragment {
         String avgvolFormatted = avgvolFormat.format(avgvol);
         textViewAvgVolume.setText("Average Volume: $ " + avgvolFormatted);
 
-        String imageURL= "https://upload.wikimedia.org/wikipedia/commons/4/48/BLANK_ICON.png";
+        String imageURL = "https://upload.wikimedia.org/wikipedia/commons/4/48/BLANK_ICON.png";
 
-        switch(name){
+        switch (name) {
             case "Siacoin":
                 imageURL = "https://cryptologos.cc/logos/siacoin-sc-logo.png?v=013";
                 break;
@@ -143,7 +134,6 @@ public class CustomDialogFragmentwAdd extends DialogFragment {
                 break;
 
 
-
             case "MCO":
                 imageURL = "https://cryptologos.cc/logos/crypto-com-mco-logo.png?v=013";
                 break;
@@ -151,13 +141,11 @@ public class CustomDialogFragmentwAdd extends DialogFragment {
                 imageURL = "https://cryptologos.cc/logos/blocknet-block-logo.png?v=013";
                 break;
             case "Loopring":
-                imageURL="https://cryptologos.cc/logos/loopring-lrc-logo.png?v=013";
+                imageURL = "https://cryptologos.cc/logos/loopring-lrc-logo.png?v=013";
                 break;
             case "Litecoin":
                 imageURL = "https://cryptologos.cc/logos/litecoin-ltc-logo.png?v=013";
                 break;
-
-
 
 
             case "Aragon":
@@ -176,13 +164,11 @@ public class CustomDialogFragmentwAdd extends DialogFragment {
                 imageURL = "https://cryptologos.cc/logos/factom-fct-logo.png?v=013";
                 break;
             case "Gas":
-                imageURL="https://cryptologos.cc/logos/gas-gas-logo.png?v=013";
+                imageURL = "https://cryptologos.cc/logos/gas-gas-logo.png?v=013";
                 break;
             case "SmartCash":
                 imageURL = "https://cryptologos.cc/logos/smartcash-smart-logo.png?v=013";
                 break;
-
-
 
 
             case "Verge":
@@ -198,7 +184,7 @@ public class CustomDialogFragmentwAdd extends DialogFragment {
                 imageURL = "https://cryptologos.cc/logos/lykke-lkk-logo.png?v=013";
                 break;
             case "Substratum":
-                imageURL="https://cryptologos.cc/logos/substratum-sub-logo.png?v=013";
+                imageURL = "https://cryptologos.cc/logos/substratum-sub-logo.png?v=013";
                 break;
             case "Neblio":
                 imageURL = "https://cryptologos.cc/logos/neblio-nebl-logo.png?v=013";
@@ -215,10 +201,8 @@ public class CustomDialogFragmentwAdd extends DialogFragment {
                 imageURL = "https://cryptologos.cc/logos/decred-dcr-logo.png?v=013";
                 break;
             case "Ethereum":
-                imageURL="https://cryptologos.cc/logos/ethereum-eth-logo.png?v=013";
+                imageURL = "https://cryptologos.cc/logos/ethereum-eth-logo.png?v=013";
                 break;
-
-
 
 
             case "Basic Attention Token":
@@ -227,8 +211,6 @@ public class CustomDialogFragmentwAdd extends DialogFragment {
             case "TenX":
                 imageURL = "https://cryptologos.cc/logos/tenx-pay-logo.png?v=013";
                 break;
-
-
 
 
             case "Bitcoin Cash":
@@ -244,14 +226,11 @@ public class CustomDialogFragmentwAdd extends DialogFragment {
                 imageURL = "https://cryptologos.cc/logos/nav-coin-nav-logo.png?v=013";
                 break;
             case "Civic":
-                imageURL="https://cryptologos.cc/logos/civic-cvc-logo.png?v=013";
+                imageURL = "https://cryptologos.cc/logos/civic-cvc-logo.png?v=013";
                 break;
             case "BitShares":
                 imageURL = "https://cryptologos.cc/logos/bitshares-bts-logo.png?v=013";
                 break;
-
-
-
 
 
             case "Veritaseum":
@@ -264,12 +243,11 @@ public class CustomDialogFragmentwAdd extends DialogFragment {
                 imageURL = "https://cryptologos.cc/logos/bancor-bnt-logo.png?v=013";
                 break;
             case "Lisk":
-                imageURL="https://cryptologos.cc/logos/lisk-lsk-logo.png?v=013";
+                imageURL = "https://cryptologos.cc/logos/lisk-lsk-logo.png?v=013";
                 break;
             case "SingularDTV":
                 imageURL = "https://cryptologos.cc/logos/singulardtv-sngls-logo.png?v=013";
                 break;
-
 
 
             case "Nexus":
@@ -286,8 +264,6 @@ public class CustomDialogFragmentwAdd extends DialogFragment {
                 break;
 
 
-
-
             case "QASH":
                 imageURL = "https://cryptologos.cc/logos/qash-qash-logo.png?v=013";
                 break;
@@ -298,7 +274,7 @@ public class CustomDialogFragmentwAdd extends DialogFragment {
                 imageURL = "https://cryptologos.cc/logos/dogecoin-doge-logo.png?v=013";
                 break;
             case "Ethereum Classic":
-                imageURL="https://cryptologos.cc/logos/ethereum-classic-etc-logo.png?v=013";
+                imageURL = "https://cryptologos.cc/logos/ethereum-classic-etc-logo.png?v=013";
                 break;
             case "PIVX":
                 imageURL = "https://cryptologos.cc/logos/pivx-pivx-logo.png?v=013";
@@ -308,10 +284,10 @@ public class CustomDialogFragmentwAdd extends DialogFragment {
                 imageURL = "https://cryptologos.cc/logos/bitcoin-btc-logo.png?v=013";
                 break;
 
-            default:
-                imageURL= "https://upload.wikimedia.org/wikipedia/commons/4/48/BLANK_ICON.png";
-        }
 
+            default:
+                imageURL = "https://upload.wikimedia.org/wikipedia/commons/4/48/BLANK_ICON.png";
+        }
 
 
         Picasso.get().load(imageURL).fit().into(image);
@@ -319,24 +295,6 @@ public class CustomDialogFragmentwAdd extends DialogFragment {
 
         builder.setView(root)
                 // Add action buttons
-                .setNegativeButton("Add to watchlist", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int id) {
-//Toast.makeText(getActivity(),quote.getName(),Toast.LENGTH_LONG).show();
-
-                        //APIQuote coin=new APIQuote(quote.getSymbol(), quote.getName(), quote.getPrice(), quote.getChangesPercentage(), quote.getChange(), quote.getDayLow(), quote.getDayHigh(), quote.getYearHigh(), quote.getYearLow(), quote.getMarketCap(), quote.getPriceAvg50(), quote.getPriceAvg200(), quote.getVolume(), quote.getAvgVolume(), quote.getExchange(), quote.getOpen(), quote.getPreviousClose(), quote.getEps(), quote.getPe(), quote.getEarningsAnnouncement(), quote.getSharesOutstanding(), quote.getTimestamp());
-
-
-                        //sharedViewModel.addToWatchlist(coin);
-
-                        //sharedViewModel.setCurrentCoin(quote);
-
-                        //sf.add();
-                        //sharedViewModel.addToWatchlist(sharedViewModel.getCurrentCoin().getValue());
-SearchFragment sf=(SearchFragment) getParentFragment();
-sf.addtoWatchlist.setValue(true);
-                    }
-                })
                 .setPositiveButton("Done", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
 
@@ -344,17 +302,5 @@ sf.addtoWatchlist.setValue(true);
                 });
         return builder.create();
     }
-    /*
-    private void loadWatchlist() {
-        LinkedList<APIQuote> tempList=new LinkedList<>();
-        sharedViewModel.setWatchlist(tempList);
-    }
-
-    private void loadCoinlist() {
-        LinkedList<APIQuote> tempList=new LinkedList<>();
-        sharedViewModel.setCoinlist(tempList);
-    }
-
-     */
 
 }

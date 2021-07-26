@@ -68,33 +68,7 @@ public class APIQuote implements Cloneable {
 
 
     }
-/*
-    public APIQuote(APIQuote quote) {
-        this.symbol= quote.getSymbol();
-        this.name=quote.getName();
-        this.price=quote.getPrice();
-        this.changesPercentage=quote.getChangesPercentage();
-        this.change=quote.getChange();
-        this.dayLow=quote.getDayLow();
-        this.dayHigh=quote.getDayHigh();
-        this.yearHigh=quote.getYearHigh();
-        this.yearLow=quote.getYearLow();
-        this.marketCap=quote.getMarketCap();
-        this.priceAvg50=quote.getPriceAvg50();
-        this.priceAvg200=quote.getPriceAvg200();
-        this.volume=quote.getVolume();
-        this.avgVolume=quote.getAvgVolume();
-        this.exchange=quote.getExchange();
-        this.open=quote.getOpen();
-        this.previousClose=quote.getPreviousClose();
-        this.eps=quote.getEps();
-        this.pe=quote.getPe();
-        this.earningsAnnouncement=quote.getEarningsAnnouncement();
-        this.sharesOutstanding=quote.getSharesOutstanding();
-        this.timestamp=quote.getTimestamp();
-    }
 
- */
 
     public void setSymbol(String symbol) {
         this.symbol = symbol;

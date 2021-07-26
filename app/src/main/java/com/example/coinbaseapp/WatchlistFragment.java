@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -32,8 +33,16 @@ private SharedViewModel sharedViewModel;
         View inflate=inflater.inflate(R.layout.fragment_watchlist, container, false);
         listView=(ListView) inflate.findViewById(R.id.watchlistListView);
 
-        //CustomWatchlist customWatchlist=new CustomWatchlist(getActivity(), imageids, companyNames,tickerNames,changeValues,currentValues);
-      // listView.setAdapter(customWatchlist);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                APIQuote quote = (APIQuote) parent.getItemAtPosition(position);
+                //sharedViewModel.setCurrentCoin(quote);
+
+                CustomDialogFragmentNoAdd d=new CustomDialogFragmentNoAdd(quote);
+                d.show(getChildFragmentManager(),"dialog2");
+            }
+        });
 
         return inflate;
     }
@@ -45,11 +54,7 @@ private SharedViewModel sharedViewModel;
         sharedViewModel.getWatchList().observe(getViewLifecycleOwner(), new Observer<LinkedList<APIQuote>>() {
             @Override
             public void onChanged(LinkedList<APIQuote> coins) {
-                //CustomWatchlist customWatchlist = new CustomWatchlist(getActivity(), imageids, companyNames, tickerNames, changeValues, currentValues);
-
                 CustomWatchlist customWatchlist = new CustomWatchlist(getActivity(), R.layout.list_row, sharedViewModel.getWatchList());
-                //ArrayAdapter<String> adapter =  new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_1, sharedViewModel.getWatchList().getValue());
-                //listView.setAdapter(adapter);
                 listView.setAdapter(customWatchlist);
             }
         });

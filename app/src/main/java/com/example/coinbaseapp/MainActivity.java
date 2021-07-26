@@ -24,6 +24,8 @@ public class MainActivity extends AppCompatActivity {
         sharedViewModel=new ViewModelProvider(this).get(SharedViewModel.class);
         loadWatchlist();
         loadCoinlist();
+        loadGainers();
+        loadLosers();
         loginButton=findViewById(R.id.loginButton);
         registerButton=findViewById(R.id.registerButton);
 
@@ -49,6 +51,16 @@ public class MainActivity extends AppCompatActivity {
     private void loadCoinlist() {
         LinkedList<APIQuote> tempList=new LinkedList<>();
         sharedViewModel.setCoinlist(tempList);
+    }
+
+    private void loadGainers() {
+        LinkedList<APIQuote> tempList=new LinkedList<>();
+        sharedViewModel.setGainers(tempList);
+    }
+
+    private void loadLosers() {
+        LinkedList<APIQuote> tempList=new LinkedList<>();
+        sharedViewModel.setLosers(tempList);
     }
 
     public void launchLogin()

@@ -18,31 +18,9 @@ public class SharedViewModel extends ViewModel {
     public MutableLiveData<APIQuote> currentCoin;
     public MutableLiveData<LinkedList<APIQuote>> watchlist;
     public MutableLiveData<LinkedList<APIQuote>> coinlist;
+    public MutableLiveData<LinkedList<APIQuote>> gainers;
+    public MutableLiveData<LinkedList<APIQuote>> losers;
 
-    //public MutableLiveData<LinkedList<APIQuote>> APIQuotes=new MutableLiveData<>();
-/*
-    public void setAPIQuotes(LinkedList<APIQuote> quotes) {
-        if (APIQuotes == null) {
-            APIQuotes = new MutableLiveData<>();
-        }
-        APIQuotes.setValue(quotes);
-    }
-
-    public void addAPIQuote(APIQuote quote){
-        LinkedList<APIQuote> tempList = APIQuotes.getValue();
-        assert tempList != null;
-        tempList.add(quote);
-        APIQuotes.setValue(tempList);
-    }
-
-    public LiveData<LinkedList<APIQuote>> getAPIQuotes() {
-        if (APIQuotes == null) {
-            APIQuotes = new MutableLiveData<>();
-        }
-        return APIQuotes;
-    }
-
- */
 
     public LiveData<APIQuote> getCurrentCoin() {
         if (currentCoin == null) {
@@ -70,14 +48,6 @@ public class SharedViewModel extends ViewModel {
         LinkedList<APIQuote> tempList = watchlist.getValue();
         assert tempList != null;
         tempList.add(quote);
-        watchlist.setValue(tempList);
-    }
-
-    public void removeFromWatchlist(APIQuote quote)
-    {
-        LinkedList<APIQuote> tempList = watchlist.getValue();
-        assert tempList != null;
-        tempList.remove(quote);
         watchlist.setValue(tempList);
     }
 
@@ -109,6 +79,60 @@ public class SharedViewModel extends ViewModel {
             coinlist = new MutableLiveData<>();
         }
         return coinlist;
+    }
+
+    //---------------------------------------
+
+    public void setGainers(LinkedList<APIQuote> quotes) {
+        if (gainers == null) {
+            gainers = new MutableLiveData<>();
+        }
+        gainers.setValue(quotes);
+    }
+
+    public void addToGainers(APIQuote quote) {
+        LinkedList<APIQuote> tempList = gainers.getValue();
+        assert tempList != null;
+
+        if(tempList.size()<=4)
+       {
+            tempList.add(quote);
+        }
+        gainers.setValue(tempList);
+    }
+
+    public LiveData<LinkedList<APIQuote>> getGainers() {
+        if (gainers == null) {
+            gainers = new MutableLiveData<>();
+        }
+        return gainers;
+    }
+
+    //---------------------------------------
+
+    public void setLosers(LinkedList<APIQuote> quotes) {
+        if (losers == null) {
+            losers = new MutableLiveData<>();
+        }
+        losers.setValue(quotes);
+    }
+
+    public void addToLosers(APIQuote quote) {
+        LinkedList<APIQuote> tempList = losers.getValue();
+        assert tempList != null;
+
+        if(tempList.size()<=4)
+        {
+            tempList.add(quote);
+        }
+        losers.setValue(tempList);
+    }
+
+    public LiveData<LinkedList<APIQuote>> getLosers() {
+        if (losers == null) {
+            losers = new MutableLiveData<>();
+        }
+        return losers;
     }
 
 }

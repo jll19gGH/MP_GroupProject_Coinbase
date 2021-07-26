@@ -23,6 +23,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import org.jetbrains.annotations.NotNull;
@@ -40,6 +41,7 @@ public class AppActivity extends AppCompatActivity {
     DatabaseReference watchlistRef = database.getReference("/"+user.getUid()+"/watchlist");
     DatabaseReference coinsRef = database.getReference("/"+user.getUid()+"/coins");
     DatabaseReference newChildRef;
+    boolean flag=true;
 
     private void getCryptoList()
     {
@@ -53,10 +55,11 @@ public class AppActivity extends AppCompatActivity {
         sharedViewModel=new ViewModelProvider(this).get(SharedViewModel.class);
         loadWatchlist();
         loadCoinlist();
+        loadGainers();
+        loadLosers();
 
 
         coinsRef.setValue(null);
-        //cryptoCoins=new ArrayList<APIQuote>();
 
         BottomNavigationView bottomNav=findViewById(R.id.bottom_navigation);
         bottomNav.setOnNavigationItemSelectedListener(navListener);
@@ -64,6 +67,8 @@ public class AppActivity extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new HomeFragment()).commit();
 
         loadLists();    //loads crypto from API and also will load the watchlist using Firebase
+
+
 
         if(user!=null)
         {
@@ -82,6 +87,16 @@ public class AppActivity extends AppCompatActivity {
         sharedViewModel.setCoinlist(tempList);
     }
 
+    private void loadGainers() {
+        LinkedList<APIQuote> tempList=new LinkedList<>();
+        sharedViewModel.setGainers(tempList);
+    }
+
+    private void loadLosers() {
+        LinkedList<APIQuote> tempList=new LinkedList<>();
+        sharedViewModel.setLosers(tempList);
+    }
+
     private void loadLists() {
         // https://financialmodelingprep.com/api/v3/quote/AAPL?apikey=demo
         ANRequest req = AndroidNetworking.get("https://financialmodelingprep.com/api/v3/quotes/crypto")
@@ -98,7 +113,6 @@ public class AppActivity extends AppCompatActivity {
                   key = newChildRef.getKey();
                   coinsRef.child(key).setValue(profile);
                }
-              //Toast.makeText(AppActivity.this, cryptoCoins.get(cryptoCoins.size()-1).getName().toString(), Toast.LENGTH_LONG).show();
             }
             //@Override
             public void onError(ANError anError) {
@@ -108,46 +122,24 @@ public class AppActivity extends AppCompatActivity {
         });
 
 
-        //Toast.makeText(AppActivity.this, quotes.get(quotes.size()-1).getName().toString(), Toast.LENGTH_LONG).show();
-/*
-        watchlistRef.orderByChild("price").addChildEventListener(new ChildEventListener() {
+
+        watchlistRef.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onChildAdded(DataSnapshot snapshot, String previousChildName) {
-
-                //cryptoCoins.add(dataSnapshot.getValue(APIQuote.class));
-
-                //List<APIQuote> quotes= (List<APIQuote>) snapshot.getValue();
-                APIQuote profile= (snapshot.getValue(APIQuote.class));
-                sharedViewModel.addToWatchlist(profile);
-                newChildRef = coinsRef.push();
-                key = newChildRef.getKey();
-                watchlistRef.child(key).setValue(profile);
+            public void onDataChange(DataSnapshot snapshot) {
+                for (DataSnapshot postSnapshot: snapshot.getChildren()) {
+                   // Toast.makeText(AppActivity.this,postSnapshot.get)
+                    //sharedv.add(dataSnapshot.getValue(APIQuote.class));
+                    if(flag)
+                    sharedViewModel.addToWatchlist(postSnapshot.getValue(APIQuote.class));
+                }
+                flag=false;
             }
 
             @Override
-            public void onChildChanged(@NonNull @NotNull DataSnapshot snapshot, @Nullable @org.jetbrains.annotations.Nullable String previousChildName) {
-
-            }
-
-            @Override
-            public void onChildRemoved(@NonNull @NotNull DataSnapshot snapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(@NonNull @NotNull DataSnapshot snapshot, @Nullable @org.jetbrains.annotations.Nullable String previousChildName) {
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull @NotNull DatabaseError error) {
+            public void onCancelled(DatabaseError error) {
 
             }
         });
-
- */
-
-
 
     }
 

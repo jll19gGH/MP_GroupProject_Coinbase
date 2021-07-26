@@ -15,7 +15,6 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        //getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new HomeFragment()).commit();
 getChildFragmentManager().beginTransaction().replace(R.id.balance_fragment_container,new PortfolioBalanceFragment()).commit();
 getChildFragmentManager().beginTransaction().replace(R.id.watchlist_fragment_container,new WatchlistFragment()).commit();
         getChildFragmentManager().beginTransaction().replace(R.id.news_fragment_container,new NewsFragment()).commit();
