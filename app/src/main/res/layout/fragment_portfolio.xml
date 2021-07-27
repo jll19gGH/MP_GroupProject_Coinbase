@@ -1,16 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".PortfolioFragment"
     android:background="@color/white">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Portfolio Fragment"
-        android:layout_centerInParent="true"/>
+        android:orientation="vertical">
 
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/portfolio_chart_container"
+        android:layout_width="match_parent"
+        android:layout_height="300dp" />
 
-</RelativeLayout>
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/portfolio_list_container"
+            android:layout_width="match_parent"
+            android:layout_height="431dp" />
+
+    <androidx.fragment.app.FragmentContainerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/portfolio_add_delete_container"/>
+
+    </LinearLayout>
+
+</ScrollView>
+

@@ -36,8 +36,11 @@ public class AppActivity extends AppCompatActivity {
 
     String key;
     private SharedViewModel sharedViewModel;
+    private TickerViewModel viewmodel;
+
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     FirebaseUser user= FirebaseAuth.getInstance().getCurrentUser();
+    DatabaseReference portfolioList = database.getReference("/"+user.getUid()+"/portfolio");
     DatabaseReference watchlistRef = database.getReference("/"+user.getUid()+"/watchlist");
     DatabaseReference coinsRef = database.getReference("/"+user.getUid()+"/coins");
     DatabaseReference newChildRef;
@@ -52,12 +55,14 @@ public class AppActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_app);
+
+        viewmodel = new ViewModelProvider(this).get(TickerViewModel.class);
         sharedViewModel=new ViewModelProvider(this).get(SharedViewModel.class);
         loadWatchlist();
         loadCoinlist();
         loadGainers();
         loadLosers();
-
+        loadList();
 
         coinsRef.setValue(null);
 
@@ -67,13 +72,6 @@ public class AppActivity extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new HomeFragment()).commit();
 
         loadLists();    //loads crypto from API and also will load the watchlist using Firebase
-
-
-
-        if(user!=null)
-        {
-            Toast.makeText(this,"User name: "+user.getDisplayName()+"\nUser email: "+user.getEmail().toString() + "\nUser id: " + user.getUid().toString(),Toast.LENGTH_LONG).show();
-        }
 
     }
 
@@ -110,8 +108,8 @@ public class AppActivity extends AppCompatActivity {
                {
                    sharedViewModel.addToCoinlist(profile);
                    newChildRef = coinsRef.push();
-                  key = newChildRef.getKey();
-                  coinsRef.child(key).setValue(profile);
+                   key = newChildRef.getKey();
+                   coinsRef.child(key).setValue(profile);
                }
             }
             //@Override
@@ -121,14 +119,10 @@ public class AppActivity extends AppCompatActivity {
 
         });
 
-
-
         watchlistRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
                 for (DataSnapshot postSnapshot: snapshot.getChildren()) {
-                   // Toast.makeText(AppActivity.this,postSnapshot.get)
-                    //sharedv.add(dataSnapshot.getValue(APIQuote.class));
                     if(flag)
                     sharedViewModel.addToWatchlist(postSnapshot.getValue(APIQuote.class));
                 }
@@ -141,6 +135,37 @@ public class AppActivity extends AppCompatActivity {
             }
         });
 
+        /*portfolioList.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                for (DataSnapshot postSnapshot: snapshot.getChildren())
+                        viewmodel.setList(postSnapshot.getValue(Portfolio.class));
+            }
+
+            @Override
+            public void onCancelled(@NonNull @NotNull DatabaseError error) {
+
+            }
+        });*/
+    }
+
+    private void loadList(){
+        LinkedList<Portfolio> tempList=new LinkedList<>();
+
+        /*portfolioList.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                for (DataSnapshot postSnapshot: snapshot.getChildren())
+                    tempList.add(postSnapshot.getValue(Portfolio.class));
+            }
+
+            @Override
+            public void onCancelled(@NonNull @NotNull DatabaseError error) {
+
+            }
+        });*/
+
+        viewmodel.setTickers(tempList);
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener navListener =

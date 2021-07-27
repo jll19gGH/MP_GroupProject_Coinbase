@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/portfolioChart"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".portfolioChart"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/amount"
+        android:layout_width="match_parent"
+        android:layout_height="38dp"
+        android:text="$0.00"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <org.eazegraph.lib.charts.PieChart
+        android:id="@+id/piechart"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="8dp" />
+
+
+</LinearLayout>
+

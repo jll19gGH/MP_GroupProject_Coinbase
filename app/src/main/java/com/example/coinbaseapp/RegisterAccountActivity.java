@@ -114,7 +114,6 @@ public class RegisterAccountActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            FirebaseUser user=mAuth.getCurrentUser();
                         } else {
                             error_layouts.setError("Something went wrong. Please try again");
                         }

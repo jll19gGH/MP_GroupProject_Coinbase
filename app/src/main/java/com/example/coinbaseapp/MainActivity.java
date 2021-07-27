@@ -15,11 +15,16 @@ public class MainActivity extends AppCompatActivity {
     Button loginButton;
     Button registerButton;
     private SharedViewModel sharedViewModel;
+    private TickerViewModel viewmodel;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        viewmodel = new ViewModelProvider(this).get(TickerViewModel.class);
+        loadPortfolio();
 
         sharedViewModel=new ViewModelProvider(this).get(SharedViewModel.class);
         loadWatchlist();
@@ -41,6 +46,11 @@ public class MainActivity extends AppCompatActivity {
                 launchRegistration();
             }
         });
+    }
+
+    private void loadPortfolio(){
+        LinkedList<Portfolio> tempList=new LinkedList<>();
+        viewmodel.setTickers(tempList);
     }
 
     private void loadWatchlist() {
@@ -74,4 +84,5 @@ public class MainActivity extends AppCompatActivity {
         Intent intent=new Intent(this,RegisterAccountActivity.class);
         startActivity(intent);
     }
+
 }

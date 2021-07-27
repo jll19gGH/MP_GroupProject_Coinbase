@@ -110,7 +110,6 @@ public class SearchFragment extends Fragment {
             @Override
             public void onChanged(Boolean val) {
                 if(val) {
-                    Toast.makeText(getActivity(), "change received", Toast.LENGTH_LONG).show();
                     sharedViewModel.addToWatchlist(sharedViewModel.getCurrentCoin().getValue());
 
                     newChildRef = watchlistRef.push();
